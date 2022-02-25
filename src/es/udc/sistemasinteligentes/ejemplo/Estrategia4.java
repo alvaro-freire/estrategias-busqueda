@@ -10,15 +10,15 @@ public class Estrategia4 implements EstrategiaBusqueda {
     }
 
     public ArrayList<Nodo> reconstruyeSol(Nodo n) {
-        Nodo aux;
+        Nodo actual;
         ArrayList<Nodo> revSol = new ArrayList<>();
         ArrayList<Nodo> sol = new ArrayList<>();
         int i;
 
-        aux = n;
-        while (aux.getPadre() != null) {
-            revSol.add(aux);
-            aux = aux.getPadre();
+        actual = n;
+        while (actual != null) {
+            revSol.add(actual);
+            actual = actual.getPadre();
         }
 
         for (i = revSol.size() - 1; i > 0; i++) {
