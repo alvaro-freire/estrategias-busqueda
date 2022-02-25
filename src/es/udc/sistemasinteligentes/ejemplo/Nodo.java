@@ -29,4 +29,11 @@ public class Nodo {
         return accion;
     }
 
+    @Override
+    public String toString() {
+        return "\nNodo {" +
+                "estado=" + estado +
+                ", accion=" + accion +
+                '}';
+    }
 }
