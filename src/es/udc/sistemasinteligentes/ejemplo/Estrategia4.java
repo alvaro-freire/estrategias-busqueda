@@ -3,6 +3,7 @@ package es.udc.sistemasinteligentes.ejemplo;
 import es.udc.sistemasinteligentes.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Estrategia4 implements EstrategiaBusqueda {
 
@@ -12,8 +13,6 @@ public class Estrategia4 implements EstrategiaBusqueda {
     public ArrayList<Nodo> reconstruyeSol(Nodo n) {
         Nodo actual;
         ArrayList<Nodo> revSol = new ArrayList<>();
-        ArrayList<Nodo> sol = new ArrayList<>();
-        int i;
 
         actual = n;
         while (actual != null) {
@@ -21,44 +20,47 @@ public class Estrategia4 implements EstrategiaBusqueda {
             actual = actual.getPadre();
         }
 
-        for (i = revSol.size() - 1; i > 0; i++) {
-            sol.add(revSol.get(i));
-        }
+        Collections.reverse(revSol);
 
-        return sol;
+        return revSol;
     }
 
     @Override
-    public Estado soluciona(ProblemaBusqueda p) throws Exception{
+    public ArrayList<Nodo> soluciona(ProblemaBusqueda p) throws Exception {
         ArrayList<Estado> explorados = new ArrayList<Estado>();
         Estado estadoActual = p.getEstadoInicial();
         explorados.add(estadoActual);
-
+        Nodo nodo = new Nodo(estadoActual, null, null);
         int i = 1;
 
         System.out.println((i++) + " - Empezando búsqueda en " + estadoActual);
 
-        while (!p.esMeta(estadoActual)){
+        while (!p.esMeta(estadoActual)) {
             System.out.println((i++) + " - " + estadoActual + " no es meta");
             Accion[] accionesDisponibles = p.acciones(estadoActual);
             boolean modificado = false;
-            for (Accion acc: accionesDisponibles) {
+
+            for (Accion acc : accionesDisponibles) {
                 Estado sc = p.result(estadoActual, acc);
-                System.out.println((i++) + " - RESULT(" + estadoActual + ","+ acc + ")=" + sc);
+                System.out.println((i++) + " - RESULT(" + estadoActual + "," + acc + ")=" + sc);
                 if (!explorados.contains(sc)) {
                     estadoActual = sc;
                     System.out.println((i++) + " - " + sc + " NO explorado");
                     explorados.add(estadoActual);
+                    nodo = new Nodo(estadoActual, nodo, acc);
                     modificado = true;
                     System.out.println((i++) + " - Estado actual cambiado a " + estadoActual);
                     break;
-                }
-                else
+                } else {
                     System.out.println((i++) + " - " + sc + " ya explorado");
+                }
             }
-            if (!modificado) throw new Exception("No se ha podido encontrar una solución");
+            if (!modificado) {
+                throw new Exception("No se ha podido encontrar una solución");
+            }
         }
-        System.out.println((i++) + " - FIN - " + estadoActual);
-        return estadoActual;
+        System.out.println((i) + " - FIN - " + estadoActual);
+
+        return reconstruyeSol(nodo);
     }
 }
