@@ -4,8 +4,6 @@ import es.udc.sistemasinteligentes.Accion;
 import es.udc.sistemasinteligentes.Estado;
 import es.udc.sistemasinteligentes.ProblemaBusqueda;
 
-import java.util.Arrays;
-
 public class ProblemaAspiradora extends ProblemaBusqueda {
     public static class EstadoAspiradora extends Estado {
         public enum PosicionRobot {IZQ, DER};
