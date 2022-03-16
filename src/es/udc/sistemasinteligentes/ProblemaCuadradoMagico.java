@@ -7,7 +7,7 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
     public static class EstadoCuadrado extends Estado {
         private int[][] cuadrado;
         private int n;
-        private ArrayList<Integer> numerosUtilizados;
+        private ArrayList<Integer> numerosUtilizados = new ArrayList<>();
 
         public EstadoCuadrado(int[][] cuadrado, int n) {
             if (cuadrado.length != n) {
@@ -92,7 +92,7 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
 
     // Como toda las acciones se pueden aplicar en cualquier estado y son pocas,
     // podemos mantenerlas en un array para cuando nos las pidan con el método acciones.
-    private Accion[] listaAcciones;
+    private AccionCuadrado[] listaAcciones;
 
     public ProblemaCuadradoMagico(EstadoCuadrado estadoInicial) {
         super(estadoInicial);
@@ -102,16 +102,24 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
         //         new AccionCuadrado(AccionCuadrado.Tipo.ASP)};
     }
 
-    public Accion[] acciones(Estado estado){
+    public AccionCuadrado[] acciones(Estado estado){
         EstadoCuadrado es = (EstadoCuadrado) estado;
-        
-        // NOT IMPLEMENTED YET
-        for (int[] fila : es.cuadrado) {
-            for (int casilla : fila) {
-                if (casilla == 0) {
-                }
+        ArrayList<Integer> numerosPosibles = new ArrayList<>();
+        ArrayList<Integer> numerosTotales = new ArrayList<>();
+        ArrayList<AccionCuadrado> acciones;
+
+        for (int i = 1; i <= es.n; i++) {
+            numerosTotales.add(i);
+        }
+
+        for (int n : numerosTotales) {
+            if (!es.numerosUtilizados.contains(n)) {
+                numerosPosibles.add(n);
             }
         }
+        
+        // NOT IMPLEMENTED YET
+        // acciones.add(new AccionCuadrado(fila, columna, n))
 
         return listaAcciones;
     }
