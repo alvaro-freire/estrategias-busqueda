@@ -46,17 +46,19 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
     }
 
     public static class AccionCuadrado extends Accion{
-        public enum Tipo {IZQ, DER, ASP};
+        private int fila;
+        private int columna;
+        private int numero;
 
-        private Tipo tipo;
-
-        public AccionCuadrado(Tipo tipo) {
-            this.tipo = tipo;
+        public AccionCuadrado(int fila, int columna, int n) {
+            this.fila = fila;
+            this.columna = columna;
+            this.numero = n;
         }
 
         @Override
         public String toString() {
-            return tipo.name();
+            return numero + "in [" + fila + ", " + columna + "]";
         }
 
         @Override
@@ -66,46 +68,26 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
 
         @Override
         public Estado aplicaA(Estado es) {
-            EstadoCuadrado esAs = (EstadoCuadrado)es;
-            EstadoCuadrado.PosicionRobot nuevaPosicionRobot=esAs.posicionRobot;
-            EstadoCuadrado.PosicionBasura nuevaPosicionBasura=esAs.posicionBasura;
+            EstadoCuadrado esCua = (EstadoCuadrado)es;
+            int[][] nuevoCuadrado = esCua.cuadrado;
+            EstadoCuadrado nuevoEstadoCuadrado = new EstadoCuadrado(esCua.cuadrado, esCua.n);
 
-            if (tipo==Tipo.IZQ)
-                nuevaPosicionRobot = EstadoCuadrado.PosicionRobot.IZQ;
-            else if (tipo==Tipo.DER)
-                nuevaPosicionRobot = EstadoCuadrado.PosicionRobot.DER;
-            else if (tipo==Tipo.ASP) {
-                if (esAs.posicionRobot==EstadoCuadrado.PosicionRobot.IZQ) { //Aspiramos izquierda
-                    if ((esAs.posicionBasura==EstadoCuadrado.PosicionBasura.DER) ||
-                            (esAs.posicionBasura==EstadoCuadrado.PosicionBasura.AMBAS)) {
-                        nuevaPosicionBasura = EstadoCuadrado.PosicionBasura.DER;
-                    }
-                    else
-                        nuevaPosicionBasura = EstadoCuadrado.PosicionBasura.NINGUNA;
-                }
-                else{ //Aspiramos derecha
-                    if ((esAs.posicionBasura==EstadoCuadrado.PosicionBasura.IZQ) ||
-                            (esAs.posicionBasura==EstadoCuadrado.PosicionBasura.AMBAS)) {
-                        nuevaPosicionBasura = EstadoCuadrado.PosicionBasura.IZQ;
-                    }
-                    else
-                        nuevaPosicionBasura = EstadoCuadrado.PosicionBasura.NINGUNA;
-                }
-            }
-            return new EstadoCuadrado(nuevaPosicionRobot, nuevaPosicionBasura);
+            // not implemented yet
+
+            return new EstadoCuadrado(nuevoCuadrado, esCua.n);
         }
     }
 
-    //Como toda las acciones se pueden aplicar en cualquier estado y son pocas,
-    //podemos mantenerlas en un array para cuando nos las pidan con el método acciones.
+    // Como toda las acciones se pueden aplicar en cualquier estado y son pocas,
+    // podemos mantenerlas en un array para cuando nos las pidan con el método acciones.
     private Accion[] listaAcciones;
 
     public ProblemaCuadradoMagico(EstadoCuadrado estadoInicial) {
         super(estadoInicial);
         //Inicializamos la lista de acciones
-        listaAcciones = new Accion[]{new AccionCuadrado(AccionCuadrado.Tipo.IZQ),
-                new AccionCuadrado(AccionCuadrado.Tipo.DER),
-                new AccionCuadrado(AccionCuadrado.Tipo.ASP)};
+        // listaAcciones = new Accion[]{new AccionCuadrado(AccionCuadrado.Tipo.IZQ),
+        //         new AccionCuadrado(AccionCuadrado),
+        //         new AccionCuadrado(AccionCuadrado.Tipo.ASP)};
     }
 
     public Accion[] acciones(Estado es){
@@ -115,7 +97,79 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
     }
 
     @Override
-    public boolean esMeta(Estado es) {
-        return ((EstadoCuadrado)es).posicionBasura == EstadoCuadrado.PosicionBasura.NINGUNA;
+    public boolean esMeta(Estado estado) {
+        EstadoCuadrado es = (EstadoCuadrado) estado;
+        return sumanFila(es) && sumanColumna(es) && sumanDiagonal(es);
+    }
+
+    public int sumaTotal(EstadoCuadrado es) {
+        return es.n * (es.n * es.n + 1) / 2;
+    }
+
+    public boolean sumanFila(EstadoCuadrado es) {
+        boolean cumpleSuma = true;
+        int sumaFila = 0;
+        int constanteMagica = sumaTotal(es);
+        int f = 0;
+
+        while (f < es.n && cumpleSuma) {
+            for (int c = 0; c < es.n; c++) {
+                sumaFila += es.cuadrado[f][c];
+            }
+
+            if (sumaFila != constanteMagica) {
+                cumpleSuma = false;
+            }
+            f++;
+            sumaFila = 0;
+        }
+        return cumpleSuma;
+    }
+
+    public boolean sumanColumna(EstadoCuadrado es) {
+        boolean cumpleSuma = true;
+        int sumaColumna = 0;
+        int constanteMagica = sumaTotal(es);
+        int c = 0;
+        while (c < es.n && cumpleSuma) {
+            for (int f = 0; f < es.n; f++) {
+                sumaColumna += es.cuadrado[f][c];
+            }
+
+            if (sumaColumna != constanteMagica) {
+                cumpleSuma = false;
+            }
+            c++;
+            sumaColumna = 0;
+        }
+        return cumpleSuma;
+    }
+
+    public boolean sumanDiagonal(EstadoCuadrado es) {
+        boolean cumpleSuma = true;
+        int constanteMagica = sumaTotal(es);
+        int sumaDiag1 = 0;
+        int f = 0, c = 0;
+        while (f < es.n && c < es.n) {
+            sumaDiag1 += es.cuadrado[f][c];
+            f++;
+            c++;
+        }
+        if (sumaDiag1 != constanteMagica) {
+            cumpleSuma = false;
+        } else {
+            int sumaDiag2 = 0;
+            f = 0;
+            c = es.n - 1;
+            while (f < es.n && c >= 0) {
+                sumaDiag2 += es.cuadrado[f][c];
+                f++;
+                c--;
+            }
+            if (sumaDiag2 != constanteMagica) {
+                cumpleSuma = false;
+            }
+        }
+        return cumpleSuma;
     }
 }
