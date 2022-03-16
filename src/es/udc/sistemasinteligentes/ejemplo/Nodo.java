@@ -11,7 +11,7 @@ public class Nodo {
 
     private final Accion accion;
 
-    Nodo(Estado e, Nodo p, Accion a) {
+    public Nodo(Estado e, Nodo p, Accion a) {
         estado = e;
         padre = p;
         accion = a;
