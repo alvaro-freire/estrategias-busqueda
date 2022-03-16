@@ -106,20 +106,30 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
         EstadoCuadrado es = (EstadoCuadrado) estado;
         ArrayList<Integer> numerosPosibles = new ArrayList<>();
         ArrayList<Integer> numerosTotales = new ArrayList<>();
-        ArrayList<AccionCuadrado> acciones;
+        ArrayList<AccionCuadrado> acciones = new ArrayList<>();
 
+        // Rango de posibles números en una casilla:
         for (int i = 1; i <= es.n; i++) {
             numerosTotales.add(i);
         }
 
+        // Guardamos los números que todavía no han sido utilizados:
         for (int n : numerosTotales) {
             if (!es.numerosUtilizados.contains(n)) {
                 numerosPosibles.add(n);
             }
         }
-        
-        // NOT IMPLEMENTED YET
-        // acciones.add(new AccionCuadrado(fila, columna, n))
+
+        // Guardamos las acciones posibles para cada casilla
+        for (int i = 0; i < es.cuadrado.length; i++) {
+            for (int j = 0; j < es.cuadrado[i].length; i++) {
+                if (es.cuadrado[i][j] == 0) {
+                    for (int numero : numerosPosibles) {
+                        acciones.add(new AccionCuadrado(i, j, numero));
+                    }
+                }
+            }
+        }
 
         return listaAcciones;
     }
