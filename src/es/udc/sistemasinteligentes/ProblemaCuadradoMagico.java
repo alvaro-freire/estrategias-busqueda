@@ -3,20 +3,27 @@ package es.udc.sistemasinteligentes;
 public class ProblemaCuadradoMagico extends ProblemaBusqueda {
 
     public static class EstadoCuadrado extends Estado {
-        public enum PosicionRobot {IZQ, DER};
-        public enum PosicionBasura {AMBAS, DER, IZQ, NINGUNA};
+        private int[][] cuadrado;
+        private int n;
 
-        private PosicionRobot posicionRobot;
-        private PosicionBasura posicionBasura;
+        public EstadoCuadrado(int[][] cuadrado, int n) {
+            if (cuadrado.length != n) {
+                throw new IllegalArgumentException();
+            }
 
-        public EstadoCuadrado(PosicionRobot posicionRobot, PosicionBasura posicionBasura) {
-            this.posicionRobot = posicionRobot;
-            this.posicionBasura = posicionBasura;
+            for (int[] fila : cuadrado) {
+                if (fila.length != n) {
+                    throw new IllegalArgumentException();
+                }
+            }
+
+            this.cuadrado = cuadrado;
+            this.n = n;
         }
 
         @Override
         public String toString() {
-            return "(" + posicionRobot + "," + posicionBasura + ')';
+            return "(" + cuadrado + "," + n + ')';
         }
 
         @Override
@@ -26,14 +33,14 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
 
             EstadoCuadrado that = (EstadoCuadrado) o;
 
-            if (posicionRobot != that.posicionRobot) return false;
-            return posicionBasura == that.posicionBasura;
+            if (cuadrado != that.cuadrado) return false;
+            return n == that.n;
         }
 
         @Override
         public int hashCode() {
-            int result = posicionRobot.hashCode();
-            result = 31 * result + posicionBasura.hashCode();
+            int result = cuadrado.hashCode();
+            result = 31 * result + cuadrado.hashCode();
             return result;
         }
     }
