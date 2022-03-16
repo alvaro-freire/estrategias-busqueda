@@ -80,33 +80,26 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
 
         @Override
         public Estado aplicaA(Estado es) {
-            EstadoCuadrado esCua = (EstadoCuadrado)es;
+            EstadoCuadrado esCua = (EstadoCuadrado) es;
             int[][] nuevoCuadrado = esCua.cuadrado;
-            EstadoCuadrado nuevoEstadoCuadrado = new EstadoCuadrado(esCua.cuadrado, esCua.n);
+            nuevoCuadrado[fila][columna] = numero;
 
-            // not implemented yet
+            EstadoCuadrado nuevoEstadoCuadrado = new EstadoCuadrado(nuevoCuadrado, esCua.n);
 
-            return new EstadoCuadrado(nuevoCuadrado, esCua.n);
+            return nuevoEstadoCuadrado;
         }
     }
 
-    // Como toda las acciones se pueden aplicar en cualquier estado y son pocas,
-    // podemos mantenerlas en un array para cuando nos las pidan con el método acciones.
-    private AccionCuadrado[] listaAcciones;
-
     public ProblemaCuadradoMagico(EstadoCuadrado estadoInicial) {
         super(estadoInicial);
-        //Inicializamos la lista de acciones
-        // listaAcciones = new Accion[]{new AccionCuadrado(AccionCuadrado.Tipo.IZQ),
-        //         new AccionCuadrado(AccionCuadrado),
-        //         new AccionCuadrado(AccionCuadrado.Tipo.ASP)};
     }
 
-    public AccionCuadrado[] acciones(Estado estado){
+    public Accion[] acciones(Estado estado){
         EstadoCuadrado es = (EstadoCuadrado) estado;
         ArrayList<Integer> numerosPosibles = new ArrayList<>();
         ArrayList<Integer> numerosTotales = new ArrayList<>();
-        ArrayList<AccionCuadrado> acciones = new ArrayList<>();
+        Accion[] listaAcciones = new Accion[]{};
+        int tamanoLista = 0;
 
         // Rango de posibles números en una casilla:
         for (int i = 1; i <= es.n; i++) {
@@ -125,7 +118,8 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
             for (int j = 0; j < es.cuadrado[i].length; i++) {
                 if (es.cuadrado[i][j] == 0) {
                     for (int numero : numerosPosibles) {
-                        acciones.add(new AccionCuadrado(i, j, numero));
+                        listaAcciones[tamanoLista] = new AccionCuadrado(i, j, numero);
+                        tamanoLista++;
                     }
                 }
             }
