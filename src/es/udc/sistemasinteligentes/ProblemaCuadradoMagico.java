@@ -1,10 +1,13 @@
 package es.udc.sistemasinteligentes;
 
+import java.util.ArrayList;
+
 public class ProblemaCuadradoMagico extends ProblemaBusqueda {
 
     public static class EstadoCuadrado extends Estado {
         private int[][] cuadrado;
         private int n;
+        private ArrayList<Integer> numerosUtilizados;
 
         public EstadoCuadrado(int[][] cuadrado, int n) {
             if (cuadrado.length != n) {
@@ -14,6 +17,15 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
             for (int[] fila : cuadrado) {
                 if (fila.length != n) {
                     throw new IllegalArgumentException();
+                }
+
+                for (int casilla : fila) {
+                    if (numerosUtilizados.contains(casilla)) {
+                        throw new IllegalArgumentException();
+                    }
+                    if (casilla != 0) {
+                        numerosUtilizados.add(casilla);
+                    }
                 }
             }
 
@@ -45,7 +57,7 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
         }
     }
 
-    public static class AccionCuadrado extends Accion{
+    public static class AccionCuadrado extends Accion {
         private int fila;
         private int columna;
         private int numero;
@@ -90,9 +102,17 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
         //         new AccionCuadrado(AccionCuadrado.Tipo.ASP)};
     }
 
-    public Accion[] acciones(Estado es){
-        //No es necesario generar las acciones dinámicamente a partir del estado porque todas las acciones se pueden
-        //aplicar a todos los estados
+    public Accion[] acciones(Estado estado){
+        EstadoCuadrado es = (EstadoCuadrado) estado;
+        
+        // NOT IMPLEMENTED YET
+        for (int[] fila : es.cuadrado) {
+            for (int casilla : fila) {
+                if (casilla == 0) {
+                }
+            }
+        }
+
         return listaAcciones;
     }
 
