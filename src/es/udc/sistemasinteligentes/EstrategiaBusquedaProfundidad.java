@@ -24,26 +24,6 @@ public class EstrategiaBusquedaProfundidad implements EstrategiaBusqueda {
         return revSol.toArray(new Nodo[0]);
     }
 
-    public boolean nodoEnLista(List<Nodo> list, Nodo nodo) {
-        for (Nodo nodoLista : list) {
-            if (nodoLista.getEstado() == nodo.getEstado()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public boolean nodoEnPila(Stack<Nodo> list, Nodo nodo) {
-        for (Nodo nodoLista : list) {
-            if (nodoLista.getEstado() == nodo.getEstado()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     @Override
     public Nodo[] soluciona(ProblemaBusqueda p) {
         List<Nodo> explorados = new ArrayList<>();
@@ -68,7 +48,7 @@ public class EstrategiaBusquedaProfundidad implements EstrategiaBusqueda {
             for (Accion acc : p.acciones(nodoActual.getEstado())) {
                 hijo = new Nodo(p.result(nodoActual.getEstado(), acc), nodoActual, acc);
 
-                if (!nodoEnPila(frontera, hijo) && !nodoEnLista(explorados, hijo)) {
+                if (!frontera.contains(hijo) && !explorados.contains(hijo)) {
                     frontera.add(hijo);
                 }
             }

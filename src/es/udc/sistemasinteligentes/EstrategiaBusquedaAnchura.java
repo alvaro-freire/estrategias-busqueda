@@ -25,26 +25,6 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
         return revSol.toArray(new Nodo[0]);
     }
 
-    public boolean nodoEnLista(ArrayList<Nodo> list, Nodo nodo) {
-        for (Nodo nodoLista : list) {
-            if (nodoLista.getEstado() == nodo.getEstado()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public boolean nodoEnCola(Queue<Nodo> list, Nodo nodo) {
-        for (Nodo nodoLista : list) {
-            if (nodoLista.getEstado() == nodo.getEstado()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     @Override
     public Nodo[] soluciona(ProblemaBusqueda p) {
         List<Nodo> explorados = new ArrayList<>();
