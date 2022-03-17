@@ -3,6 +3,8 @@ package es.udc.sistemasinteligentes.ejemplo;
 import es.udc.sistemasinteligentes.EstrategiaBusqueda;
 import es.udc.sistemasinteligentes.ProblemaBusqueda;
 
+import java.util.Arrays;
+
 public class Main1a {
 
     public static void main(String[] args) throws Exception {
@@ -11,6 +13,6 @@ public class Main1a {
         ProblemaBusqueda aspiradora = new ProblemaAspiradora(estadoInicial);
 
         EstrategiaBusqueda buscador = new Estrategia4();
-        System.out.println(buscador.soluciona(aspiradora));
+        System.out.println(Arrays.toString(buscador.soluciona(aspiradora)));
     }
 }

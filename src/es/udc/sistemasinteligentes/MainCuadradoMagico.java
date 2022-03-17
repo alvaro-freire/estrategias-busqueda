@@ -1,5 +1,7 @@
 package es.udc.sistemasinteligentes;
 
+import java.util.Arrays;
+
 public class MainCuadradoMagico {
     public static void main(String[] args) throws Exception {
         int n = 3;
@@ -11,6 +13,6 @@ public class MainCuadradoMagico {
         EstrategiaBusquedaAnchura buscador = new EstrategiaBusquedaAnchura();
         // EstrategiaBusquedaProfundidad buscador = new EstrategiaBusquedaProfundidad();
 
-        System.out.println(buscador.soluciona(cuadradoMagico));
+        System.out.println(Arrays.toString(buscador.soluciona(cuadradoMagico)));
     }
 }
