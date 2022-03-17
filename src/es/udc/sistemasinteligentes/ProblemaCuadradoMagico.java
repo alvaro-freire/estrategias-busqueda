@@ -7,26 +7,10 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
     public static class EstadoCuadrado extends Estado {
         private int[][] cuadrado;
         private int n;
-        private ArrayList<Integer> numerosUtilizados = new ArrayList<>();
 
         public EstadoCuadrado(int[][] cuadrado, int n) {
             if (cuadrado.length != n) {
                 throw new IllegalArgumentException();
-            }
-
-            for (int[] fila : cuadrado) {
-                if (fila.length != n) {
-                    throw new IllegalArgumentException();
-                }
-
-                for (int casilla : fila) {
-                    if (numerosUtilizados.contains(casilla)) {
-                        throw new IllegalArgumentException();
-                    }
-                    if (casilla != 0) {
-                        numerosUtilizados.add(casilla);
-                    }
-                }
             }
 
             this.cuadrado = cuadrado;
@@ -98,17 +82,34 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
         EstadoCuadrado es = (EstadoCuadrado) estado;
         ArrayList<Integer> numerosPosibles = new ArrayList<>();
         ArrayList<Integer> numerosTotales = new ArrayList<>();
+        ArrayList<Integer> numerosUtilizados = new ArrayList<>();
         Accion[] listaAcciones = new Accion[]{};
         int tamanoLista = 0;
 
-        // Rango de posibles números en una casilla:
+        // Guardamos los números que todavía no han sido utilizados:
+        for (int[] fila : es.cuadrado) {
+            if (fila.length != es.n) {
+                throw new IllegalArgumentException();
+            }
+
+            for (int casilla : fila) {
+                if (numerosUtilizados.contains(casilla)) {
+                    throw new IllegalArgumentException();
+                }
+                if (casilla != 0) {
+                    numerosUtilizados.add(casilla);
+                }
+            }
+        }
+
+        // Posibles números en una casilla:
         for (int i = 1; i <= es.n; i++) {
             numerosTotales.add(i);
         }
 
         // Guardamos los números que todavía no han sido utilizados:
         for (int n : numerosTotales) {
-            if (!es.numerosUtilizados.contains(n)) {
+            if (!numerosUtilizados.contains(n)) {
                 numerosPosibles.add(n);
             }
         }
