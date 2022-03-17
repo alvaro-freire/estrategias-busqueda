@@ -12,7 +12,7 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
 
     public Nodo[] reconstruyeSol(Nodo n) {
         Nodo actual;
-        ArrayList<Nodo> revSol = new ArrayList<>();
+        List<Nodo> revSol = new ArrayList<>();
 
         actual = n;
         while (actual != null) {
@@ -26,7 +26,7 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
     }
 
     @Override
-    public Nodo[] soluciona(ProblemaBusqueda p) {
+    public Nodo[] soluciona(ProblemaBusqueda p) throws Exception {
         List<Nodo> explorados = new ArrayList<>();
         Nodo nodoActual = new Nodo(p.getEstadoInicial(), null, null);
         Nodo hijo;
@@ -35,7 +35,7 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
 
         while (true) {
             if (frontera.isEmpty()) {
-                throw new IllegalArgumentException("No se ha podido encontrar solución");
+                throw new Exception("No se ha podido encontrar solución");
             }
 
             nodoActual = frontera.remove();
