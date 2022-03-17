@@ -32,6 +32,7 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
         Nodo hijo;
         Queue<Nodo> frontera = new LinkedList<>();
         frontera.add(nodoActual);
+        int i = 1;
 
         while (true) {
             if (frontera.isEmpty()) {
@@ -43,6 +44,8 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
             if (p.esMeta(nodoActual.getEstado())) {
                 break;
             }
+
+            System.out.println((i++) + " - " + nodoActual.getEstado() + " no es meta");
 
             explorados.add(nodoActual);
 

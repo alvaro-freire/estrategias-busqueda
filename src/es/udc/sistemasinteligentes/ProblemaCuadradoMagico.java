@@ -24,18 +24,13 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-
             EstadoCuadrado that = (EstadoCuadrado) o;
-
-            if (cuadrado != that.cuadrado) return false;
-            return n == that.n;
+            return Arrays.deepEquals(cuadrado, that.cuadrado);
         }
 
         @Override
         public int hashCode() {
-            int result = Arrays.deepHashCode(cuadrado);
-            result = 31 * result + Arrays.deepHashCode(cuadrado);
-            return result;
+            return Arrays.deepHashCode(cuadrado);
         }
     }
 
@@ -63,7 +58,12 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
         @Override
         public Estado aplicaA(Estado es) {
             EstadoCuadrado esCua = (EstadoCuadrado) es;
-            int[][] nuevoCuadrado = esCua.cuadrado;
+            int[][] nuevoCuadrado = new int[esCua.n][];
+
+            for (int i = 0; i < esCua.n; i++) {
+                nuevoCuadrado[i] = esCua.cuadrado[i].clone();
+            }
+
             nuevoCuadrado[fila][columna] = numero;
 
             return new EstadoCuadrado(nuevoCuadrado, esCua.n);
@@ -120,12 +120,12 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
     public boolean esMeta(Estado estado) {
         EstadoCuadrado es = (EstadoCuadrado) estado;
         int result = es.n * (es.n * es.n + 1) / 2;
-        int sumaFila = 0;
-        int sumaColumna = 0;
         int sumaDiag1 = 0;
         int sumaDiag2 = 0;
 
         for (int i = 0; i < es.n; i++) {
+            int sumaFila = 0;
+            int sumaColumna = 0;
             sumaDiag1 += es.cuadrado[i][i];
             sumaDiag2 += es.cuadrado[i][es.n - i - 1];
 
