@@ -76,29 +76,29 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
 
     public Accion[] acciones(Estado estado) {
         EstadoCuadrado es = (EstadoCuadrado) estado;
-        List<Integer> numerosPosibles = new ArrayList<>();
-        List<Integer> numerosTotales = new ArrayList<>();
-        List<Integer> numerosUtilizados = new ArrayList<>();
+        List<Integer> valoresPosibles = new ArrayList<>();
+        List<Integer> valoresTotales = new ArrayList<>();
+        List<Integer> valoresUtilizados = new ArrayList<>();
         List<Accion> listaAcciones = new ArrayList<>();
 
         // Guardamos los números que ya han sido utilizados:
         for (int[] fila : es.cuadrado) {
             for (int casilla : fila) {
                 if (casilla != 0) {
-                    numerosUtilizados.add(casilla);
+                    valoresUtilizados.add(casilla);
                 }
             }
         }
 
         // Posibles números en una casilla:
         for (int i = 1; i <= es.n * es.n; i++) {
-            numerosTotales.add(i);
+            valoresTotales.add(i);
         }
 
         // Guardamos los números que todavía no han sido utilizados:
-        for (int n : numerosTotales) {
-            if (!numerosUtilizados.contains(n)) {
-                numerosPosibles.add(n);
+        for (int n : valoresTotales) {
+            if (!valoresUtilizados.contains(n)) {
+                valoresPosibles.add(n);
             }
         }
 
@@ -106,8 +106,8 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
         for (int i = 0; i < es.n; i++) {
             for (int j = 0; j < es.n; j++) {
                 if (es.cuadrado[i][j] == 0) {
-                    for (int numero : numerosPosibles) {
-                        listaAcciones.add(new AccionCuadrado(i, j, numero));
+                    for (int valor : valoresPosibles) {
+                        listaAcciones.add(new AccionCuadrado(i, j, valor));
                     }
                 }
             }
