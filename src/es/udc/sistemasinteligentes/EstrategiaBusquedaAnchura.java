@@ -1,17 +1,81 @@
 package es.udc.sistemasinteligentes;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 import es.udc.sistemasinteligentes.ejemplo.Nodo;
 
 public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
 
-    @Override
-    public ArrayList<Nodo> soluciona(ProblemaBusqueda p) throws Exception {
-        ArrayList<Nodo> explorados = new ArrayList<>();
-        Nodo nodoActual = new Nodo(p.getEstadoInicial(), null, null);
-        
+    public Nodo[] reconstruyeSol(Nodo n) {
+        Nodo actual;
+        ArrayList<Nodo> revSol = new ArrayList<>();
 
-        return null;
+        actual = n;
+        while (actual != null) {
+            revSol.add(actual);
+            actual = actual.getPadre();
+        }
+
+        Collections.reverse(revSol);
+
+        return revSol.toArray(new Nodo[0]);
     }
-    
+
+    public boolean nodoEnLista(ArrayList<Nodo> list, Nodo nodo) {
+        for (Nodo nodoLista : list) {
+            if (nodoLista.getEstado() == nodo.getEstado()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean nodoEnCola(Queue<Nodo> list, Nodo nodo) {
+        for (Nodo nodoLista : list) {
+            if (nodoLista.getEstado() == nodo.getEstado()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public Nodo[] soluciona(ProblemaBusqueda p) throws Exception {
+        List<Nodo> explorados = new ArrayList<>();
+        Nodo nodoActual = new Nodo(p.getEstadoInicial(), null, null);
+        Nodo nodoSiguiente;
+        Queue<Nodo> frontera = new LinkedList<>();
+        frontera.add(nodoActual);        
+
+        while (true) {
+            if (frontera.isEmpty()) {
+                throw new IllegalArgumentException();
+            }
+
+            nodoActual = frontera.remove();
+
+            if (p.esMeta(nodoActual.getEstado())) {
+                break;
+            }
+
+            explorados.add(nodoActual);
+            
+            for (Accion acc : p.acciones(nodoActual.getEstado())) {
+                nodoSiguiente = 
+                    new Nodo(p.result(nodoActual.getEstado(), acc), nodoActual, acc);
+                
+                if (!frontera.contains(nodoSiguiente) && !explorados.contains(nodoSiguiente)) {
+                    frontera.add(nodoSiguiente);
+                }
+            }
+        }
+
+        return reconstruyeSol(nodoActual);
+    }
 }
