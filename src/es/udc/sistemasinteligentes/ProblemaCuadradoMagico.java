@@ -1,6 +1,8 @@
 package es.udc.sistemasinteligentes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ProblemaCuadradoMagico extends ProblemaBusqueda {
 
@@ -9,17 +11,13 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
         private int n;
 
         public EstadoCuadrado(int[][] cuadrado, int n) {
-            if (cuadrado.length != n) {
-                throw new IllegalArgumentException();
-            }
-
             this.cuadrado = cuadrado;
             this.n = n;
         }
 
         @Override
         public String toString() {
-            return "(" + cuadrado + "," + n + ')';
+            return "(" + Arrays.deepToString(cuadrado) + "," + n + ')';
         }
 
         @Override
@@ -35,8 +33,8 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
 
         @Override
         public int hashCode() {
-            int result = cuadrado.hashCode();
-            result = 31 * result + cuadrado.hashCode();
+            int result = Arrays.deepHashCode(cuadrado);
+            result = 31 * result + Arrays.deepHashCode(cuadrado);
             return result;
         }
     }
@@ -68,9 +66,7 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
             int[][] nuevoCuadrado = esCua.cuadrado;
             nuevoCuadrado[fila][columna] = numero;
 
-            EstadoCuadrado nuevoEstadoCuadrado = new EstadoCuadrado(nuevoCuadrado, esCua.n);
-
-            return nuevoEstadoCuadrado;
+            return new EstadoCuadrado(nuevoCuadrado, esCua.n);
         }
     }
 
@@ -78,24 +74,16 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
         super(estadoInicial);
     }
 
-    public Accion[] acciones(Estado estado){
+    public Accion[] acciones(Estado estado) {
         EstadoCuadrado es = (EstadoCuadrado) estado;
-        ArrayList<Integer> numerosPosibles = new ArrayList<>();
-        ArrayList<Integer> numerosTotales = new ArrayList<>();
-        ArrayList<Integer> numerosUtilizados = new ArrayList<>();
-        Accion[] listaAcciones = new Accion[]{};
-        int tamanoLista = 0;
+        List<Integer> numerosPosibles = new ArrayList<>();
+        List<Integer> numerosTotales = new ArrayList<>();
+        List<Integer> numerosUtilizados = new ArrayList<>();
+        List<Accion> listaAcciones = new ArrayList<>();
 
-        // Guardamos los números que todavía no han sido utilizados:
+        // Guardamos los números que ya han sido utilizados:
         for (int[] fila : es.cuadrado) {
-            if (fila.length != es.n) {
-                throw new IllegalArgumentException();
-            }
-
             for (int casilla : fila) {
-                if (numerosUtilizados.contains(casilla)) {
-                    throw new IllegalArgumentException();
-                }
                 if (casilla != 0) {
                     numerosUtilizados.add(casilla);
                 }
@@ -103,7 +91,7 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
         }
 
         // Posibles números en una casilla:
-        for (int i = 1; i <= es.n; i++) {
+        for (int i = 1; i <= es.n * es.n; i++) {
             numerosTotales.add(i);
         }
 
@@ -115,94 +103,42 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
         }
 
         // Guardamos las acciones posibles para cada casilla
-        for (int i = 0; i < es.cuadrado.length; i++) {
-            for (int j = 0; j < es.cuadrado[i].length; i++) {
+        for (int i = 0; i < es.n; i++) {
+            for (int j = 0; j < es.n; j++) {
                 if (es.cuadrado[i][j] == 0) {
                     for (int numero : numerosPosibles) {
-                        listaAcciones[tamanoLista] = new AccionCuadrado(i, j, numero);
-                        tamanoLista++;
+                        listaAcciones.add(new AccionCuadrado(i, j, numero));
                     }
                 }
             }
         }
 
-        return listaAcciones;
+        return listaAcciones.toArray(new Accion[0]);
     }
 
     @Override
     public boolean esMeta(Estado estado) {
         EstadoCuadrado es = (EstadoCuadrado) estado;
-        return sumanFila(es) && sumanColumna(es) && sumanDiagonal(es);
-    }
-
-    public int sumaTotal(EstadoCuadrado es) {
-        return es.n * (es.n * es.n + 1) / 2;
-    }
-
-    public boolean sumanFila(EstadoCuadrado es) {
-        boolean cumpleSuma = true;
+        int result = es.n * (es.n * es.n + 1) / 2;
         int sumaFila = 0;
-        int constanteMagica = sumaTotal(es);
-        int f = 0;
-
-        while (f < es.n && cumpleSuma) {
-            for (int c = 0; c < es.n; c++) {
-                sumaFila += es.cuadrado[f][c];
-            }
-
-            if (sumaFila != constanteMagica) {
-                cumpleSuma = false;
-            }
-            f++;
-            sumaFila = 0;
-        }
-        return cumpleSuma;
-    }
-
-    public boolean sumanColumna(EstadoCuadrado es) {
-        boolean cumpleSuma = true;
         int sumaColumna = 0;
-        int constanteMagica = sumaTotal(es);
-        int c = 0;
-        while (c < es.n && cumpleSuma) {
-            for (int f = 0; f < es.n; f++) {
-                sumaColumna += es.cuadrado[f][c];
-            }
-
-            if (sumaColumna != constanteMagica) {
-                cumpleSuma = false;
-            }
-            c++;
-            sumaColumna = 0;
-        }
-        return cumpleSuma;
-    }
-
-    public boolean sumanDiagonal(EstadoCuadrado es) {
-        boolean cumpleSuma = true;
-        int constanteMagica = sumaTotal(es);
         int sumaDiag1 = 0;
-        int f = 0, c = 0;
-        while (f < es.n && c < es.n) {
-            sumaDiag1 += es.cuadrado[f][c];
-            f++;
-            c++;
-        }
-        if (sumaDiag1 != constanteMagica) {
-            cumpleSuma = false;
-        } else {
-            int sumaDiag2 = 0;
-            f = 0;
-            c = es.n - 1;
-            while (f < es.n && c >= 0) {
-                sumaDiag2 += es.cuadrado[f][c];
-                f++;
-                c--;
+        int sumaDiag2 = 0;
+
+        for (int i = 0; i < es.n; i++) {
+            sumaDiag1 += es.cuadrado[i][i];
+            sumaDiag2 += es.cuadrado[i][es.n - i - 1];
+
+            for (int j = 0; j < es.n; j++) {
+                sumaFila += es.cuadrado[i][j];
+                sumaColumna += es.cuadrado[j][i];
             }
-            if (sumaDiag2 != constanteMagica) {
-                cumpleSuma = false;
+
+            if (sumaFila != result || sumaColumna != result) {
+                return false;
             }
         }
-        return cumpleSuma;
+
+        return sumaDiag1 == result && sumaDiag2 == result;
     }
 }
