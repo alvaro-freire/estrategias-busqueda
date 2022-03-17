@@ -10,7 +10,7 @@ public class Estrategia4 implements EstrategiaBusqueda {
     public Estrategia4() {
     }
 
-    public ArrayList<Nodo> reconstruyeSol(Nodo n) {
+    public Nodo[] reconstruyeSol(Nodo n) {
         Nodo actual;
         ArrayList<Nodo> revSol = new ArrayList<>();
 
@@ -22,11 +22,11 @@ public class Estrategia4 implements EstrategiaBusqueda {
 
         Collections.reverse(revSol);
 
-        return revSol;
+        return revSol.toArray(new Nodo[0]);
     }
 
     @Override
-    public ArrayList<Nodo> soluciona(ProblemaBusqueda p) throws Exception {
+    public Nodo[] soluciona(ProblemaBusqueda p) throws Exception {
         ArrayList<Estado> explorados = new ArrayList<Estado>();
         Estado estadoActual = p.getEstadoInicial();
         explorados.add(estadoActual);

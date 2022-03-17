@@ -11,7 +11,7 @@ import java.util.Queue;
 
 public class EstrategiaBusquedaGrafo implements EstrategiaBusqueda {
 
-    public ArrayList<Nodo> reconstruyeSol(Nodo n) {
+    public Nodo[] reconstruyeSol(Nodo n) {
         Nodo actual;
         ArrayList<Nodo> revSol = new ArrayList<>();
 
@@ -23,7 +23,7 @@ public class EstrategiaBusquedaGrafo implements EstrategiaBusqueda {
 
         Collections.reverse(revSol);
 
-        return revSol;
+        return revSol.toArray(new Nodo[0]);
     }
 
     public boolean nodoEnLista(ArrayList<Nodo> list, Nodo nodo) {
@@ -47,7 +47,7 @@ public class EstrategiaBusquedaGrafo implements EstrategiaBusqueda {
     }
 
     @Override
-    public ArrayList<Nodo> soluciona(ProblemaBusqueda p) throws Exception {
+    public Nodo[] soluciona(ProblemaBusqueda p) throws Exception {
         ArrayList<Nodo> explorados = new ArrayList<>();
         Queue<Nodo> frontera = new LinkedList<>();
         Nodo nodoActual = new Nodo(p.getEstadoInicial(), null, null);
