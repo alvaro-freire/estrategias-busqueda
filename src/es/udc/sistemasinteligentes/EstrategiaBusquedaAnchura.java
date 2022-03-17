@@ -46,16 +46,16 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
     }
 
     @Override
-    public Nodo[] soluciona(ProblemaBusqueda p) throws Exception {
+    public Nodo[] soluciona(ProblemaBusqueda p) {
         List<Nodo> explorados = new ArrayList<>();
         Nodo nodoActual = new Nodo(p.getEstadoInicial(), null, null);
-        Nodo nodoSiguiente;
+        Nodo hijo;
         Queue<Nodo> frontera = new LinkedList<>();
-        frontera.add(nodoActual);        
+        frontera.add(nodoActual);
 
         while (true) {
             if (frontera.isEmpty()) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("No se ha podido encontrar solución");
             }
 
             nodoActual = frontera.remove();
@@ -65,13 +65,12 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
             }
 
             explorados.add(nodoActual);
-            
+
             for (Accion acc : p.acciones(nodoActual.getEstado())) {
-                nodoSiguiente = 
-                    new Nodo(p.result(nodoActual.getEstado(), acc), nodoActual, acc);
-                
-                if (!frontera.contains(nodoSiguiente) && !explorados.contains(nodoSiguiente)) {
-                    frontera.add(nodoSiguiente);
+                hijo = new Nodo(p.result(nodoActual.getEstado(), acc), nodoActual, acc);
+
+                if (!frontera.contains(hijo) && !explorados.contains(hijo)) {
+                    frontera.add(hijo);
                 }
             }
         }

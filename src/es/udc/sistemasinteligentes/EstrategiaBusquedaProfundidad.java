@@ -48,13 +48,13 @@ public class EstrategiaBusquedaProfundidad implements EstrategiaBusqueda {
     public Nodo[] soluciona(ProblemaBusqueda p) {
         List<Nodo> explorados = new ArrayList<>();
         Nodo nodoActual = new Nodo(p.getEstadoInicial(), null, null);
-        Nodo nodoSiguiente;
+        Nodo hijo;
         Stack<Nodo> frontera = new Stack<>();
         frontera.add(nodoActual);
 
         while (true) {
             if (frontera.isEmpty()) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("No se ha podido encontrar solución");
             }
 
             nodoActual = frontera.pop();
@@ -66,16 +66,15 @@ public class EstrategiaBusquedaProfundidad implements EstrategiaBusqueda {
             explorados.add(nodoActual);
 
             for (Accion acc : p.acciones(nodoActual.getEstado())) {
-                nodoSiguiente =
-                        new Nodo(p.result(nodoActual.getEstado(), acc), nodoActual, acc);
+                hijo = new Nodo(p.result(nodoActual.getEstado(), acc), nodoActual, acc);
 
-                if (!nodoEnPila(frontera, nodoSiguiente) && !nodoEnLista(explorados, nodoSiguiente)) {
-                    frontera.add(nodoSiguiente);
+                if (!nodoEnPila(frontera, hijo) && !nodoEnLista(explorados, hijo)) {
+                    frontera.add(hijo);
                 }
             }
         }
 
         return reconstruyeSol(nodoActual);
     }
-    
+
 }
