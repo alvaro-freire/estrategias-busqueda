@@ -3,7 +3,7 @@ package es.udc.sistemasinteligentes.ejemplo;
 import es.udc.sistemasinteligentes.EstrategiaBusqueda;
 import es.udc.sistemasinteligentes.ProblemaBusqueda;
 
-public class Main {
+public class Main1a {
 
     public static void main(String[] args) throws Exception {
         ProblemaAspiradora.EstadoAspiradora estadoInicial = new ProblemaAspiradora.EstadoAspiradora(ProblemaAspiradora.EstadoAspiradora.PosicionRobot.IZQ,
