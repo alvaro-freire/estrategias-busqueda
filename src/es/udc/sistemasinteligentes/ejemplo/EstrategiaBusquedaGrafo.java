@@ -28,7 +28,7 @@ public class EstrategiaBusquedaGrafo implements EstrategiaBusqueda {
 
     public boolean nodoEnLista(ArrayList<Nodo> list, Nodo nodo) {
         for (Nodo nodoLista : list) {
-            if (nodoLista.getEstado() == nodo.getEstado()) {
+            if (nodoLista.getEstado().equals(nodo.getEstado())) {
                 return true;
             }
         }
@@ -38,7 +38,7 @@ public class EstrategiaBusquedaGrafo implements EstrategiaBusqueda {
 
     public boolean nodoEnCola(Queue<Nodo> list, Nodo nodo) {
         for (Nodo nodoLista : list) {
-            if (nodoLista.getEstado() == nodo.getEstado()) {
+            if (nodoLista.getEstado().equals(nodo.getEstado())) {
                 return true;
             }
         }
@@ -52,7 +52,6 @@ public class EstrategiaBusquedaGrafo implements EstrategiaBusqueda {
         Queue<Nodo> frontera = new LinkedList<>();
         Nodo nodoActual = new Nodo(p.getEstadoInicial(), null, null);
         frontera.add(nodoActual);
-        explorados.add(nodoActual);
         int i = 1;
 
         System.out.println((i++) + " - Empezando búsqueda en " + nodoActual.getEstado());
@@ -77,6 +76,8 @@ public class EstrategiaBusquedaGrafo implements EstrategiaBusqueda {
                 if (!nodoEnLista(explorados, hijo) && !nodoEnCola(frontera, hijo)) {
                     System.out.println((i++) + " - " + hijo.getEstado() + " NO explorado");
                     frontera.add(hijo);
+                } else {
+                    System.out.println((i++) + " - " + hijo.getEstado() + " YA explorado o YA en frontera");
                 }
             }
         }
