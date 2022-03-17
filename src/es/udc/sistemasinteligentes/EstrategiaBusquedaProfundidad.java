@@ -1,6 +1,9 @@
 package es.udc.sistemasinteligentes;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
+import java.util.ArrayList;
 
 import es.udc.sistemasinteligentes.ejemplo.Nodo;
 
@@ -8,7 +11,7 @@ public class EstrategiaBusquedaProfundidad implements EstrategiaBusqueda {
 
     public Nodo[] reconstruyeSol(Nodo n) {
         Nodo actual;
-        ArrayList<Nodo> revSol = new ArrayList<>();
+        List<Nodo> revSol = new ArrayList<>();
 
         actual = n;
         while (actual != null) {
