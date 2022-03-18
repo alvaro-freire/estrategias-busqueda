@@ -15,6 +15,14 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
             this.n = n;
         }
 
+        public int[][] getCuadrado() {
+            return cuadrado;
+        }
+
+        public int getN() {
+            return n;
+        }
+
         @Override
         public String toString() {
             return "(" + Arrays.deepToString(cuadrado) + "," + n + ')';
