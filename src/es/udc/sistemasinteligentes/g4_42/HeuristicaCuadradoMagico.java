@@ -1,6 +1,6 @@
-package es.udc.sistemasinteligentes.gA_42;
+package es.udc.sistemasinteligentes.g4_42;
 
-import es.udc.sistemasinteligentes.gA_42.ProblemaCuadradoMagico.EstadoCuadrado;
+import es.udc.sistemasinteligentes.g4_42.ProblemaCuadradoMagico.EstadoCuadrado;
 
 public class HeuristicaCuadradoMagico extends Heuristica {
 

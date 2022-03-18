@@ -1,9 +1,9 @@
-package es.udc.sistemasinteligentes.gA_42.ejemplo;
+package es.udc.sistemasinteligentes.g4_42.ejemplo;
 
-import es.udc.sistemasinteligentes.gA_42.Accion;
-import es.udc.sistemasinteligentes.gA_42.Estado;
-import es.udc.sistemasinteligentes.gA_42.EstrategiaBusqueda;
-import es.udc.sistemasinteligentes.gA_42.ProblemaBusqueda;
+import es.udc.sistemasinteligentes.g4_42.Accion;
+import es.udc.sistemasinteligentes.g4_42.Estado;
+import es.udc.sistemasinteligentes.g4_42.EstrategiaBusqueda;
+import es.udc.sistemasinteligentes.g4_42.ProblemaBusqueda;
 
 import java.util.*;
 

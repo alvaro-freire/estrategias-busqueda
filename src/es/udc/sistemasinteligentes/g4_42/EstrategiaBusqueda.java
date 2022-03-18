@@ -1,6 +1,6 @@
-package es.udc.sistemasinteligentes.gA_42;
+package es.udc.sistemasinteligentes.g4_42;
 
-import es.udc.sistemasinteligentes.gA_42.ejemplo.Nodo;
+import es.udc.sistemasinteligentes.g4_42.ejemplo.Nodo;
 
 public interface EstrategiaBusqueda {
     /**

@@ -1,4 +1,4 @@
-package es.udc.sistemasinteligentes.gA_42;
+package es.udc.sistemasinteligentes.g4_42;
 
 import java.util.ArrayList;
 import java.util.Arrays;

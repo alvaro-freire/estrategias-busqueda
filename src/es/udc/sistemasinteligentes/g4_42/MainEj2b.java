@@ -1,4 +1,4 @@
-package es.udc.sistemasinteligentes.gA_42;
+package es.udc.sistemasinteligentes.g4_42;
 
 public class MainEj2b {
     public static void main(String[] args) throws Exception {
