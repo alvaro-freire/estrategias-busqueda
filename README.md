@@ -1,4 +1,4 @@
-## Memoría Práctica - Estrategias-Búsqueda
+## Memoria Prácticas - Estrategias-Búsqueda
 
 ### Ejercicio 1
 
