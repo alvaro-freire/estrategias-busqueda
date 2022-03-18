@@ -2,7 +2,7 @@ package es.udc.sistemasinteligentes.gA_42;
 
 import java.util.Arrays;
 
-public class Main2a {
+public class MainEj2a {
     public static void main(String[] args) throws Exception {
         int n = 3;
         int[][] cuadrado = {{4, 9, 0}, {0, 0, 0}, {0, 0, 0}};
