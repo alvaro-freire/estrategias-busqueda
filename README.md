@@ -13,6 +13,8 @@ Para la clase `EstrategiaBúsquedaGrafo` hemos añadido una frontera (cola), que
 
 ### Ejercicio 2
 
+#### Apartado A)
+
 Hemos definido un estado con los atributos `cuadrado` como matriz con las casillas a completar
 y `n` que describe la dimensión del cuadrado `NxN`. Las acciones que hemos concluido para un
 estado se basan en, para cada casilla, colocar el menor número posible.
@@ -20,19 +22,51 @@ estado se basan en, para cada casilla, colocar el menor número posible.
 Ejemplo:
 
 Estado:  
-[4, 9, 2]  
+>[4, 9, 2]  
 [3, 5, 7]  
 [0, 0, 0]
 
-
 Acciones:  
-[4, 9, 2] -- [4, 9, 2] -- [4, 9, 2]  
+>[4, 9, 2] -- [4, 9, 2] -- [4, 9, 2]  
 [3, 5, 7] -- [3, 5, 7] -- [3, 5, 7]  
 [1, 0, 0] -- [0, 1, 0] -- [0, 0, 1]  
 
-
-Se han implementado también dos estrategias:
+Se han implementado también dos estrategias de `búsqueda no informada`:
 `EstrategiaBusquedaAnchura` y `EstrategiaBusquedaProfundidad`.
 
-La idea principal de la búsqueda en anchura consiste en visitar todos los nodos que hay a profundidad `i` antes de pasar a visitar aquellos que hay a profundidad `i+1`. Es decir, tras visitar un nodo, pasamos a visitar a sus hermanos antes que a sus hijos.
+La idea principal de la búsqueda en anchura consiste en visitar todos 
+los nodos que hay a profundidad `i` antes de pasar a visitar aquellos 
+que hay a profundidad `i+1`. Es decir, tras visitar un nodo, pasamos 
+a visitar a sus hermanos antes que a sus hijos.
 
+En cambio, la búsqueda en profundidad consiste en ir expandiendo todos 
+y cada uno de los nodos que va localizando, de forma recurrente, en un 
+camino concreto. Cuando ya no quedan más nodos que visitar en dicho 
+camino, regresa, de modo que repite el mismo proceso con cada uno de 
+los hermanos del nodo ya procesado.
+
+Para este caso, la búsqueda en anchura es completa (expande antes los 
+nodos más próximos a la meta) y óptima (siempre encuentra la solución 
+que requiere menos pasos). En el caso de la búsqueda en profundidad, 
+esta no ofrece una solución óptima, ya que puede encontrar la meta en
+el nivel más bajo cuando esta podría estar en uno superior.
+
+Por lo tanto, la estrategia más adecuada es la búsqueda en anchura.
+
+#### Apartado B)
+
+Hemos creado una función heurística con valores que oscilan entre 0 y 1,
+siendo 0 la heurísitica más lejana a la meta y 1 la más cercana. Para 
+ello, puesto que las acciones se basan en rellenar casillas vacías y no
+se pueden sobreescribir, cuando un estado tiene algún valor incorrecto 
+como por ejemplo:
+
+> [9, 8, 0]  
+[0, 0, 0]  
+[0, 0, 0]  
+
+Una vez se comprueba que el estado no es incorrecto, se comienza a
+"penalizar" el valor de retorno en función de las casillas vacías
+que haya en cada fila. De esta forma, cuantas más casillas rellenas
+haya, mayor será el valor de la función heurística y más cerca estaremos
+de la meta.
