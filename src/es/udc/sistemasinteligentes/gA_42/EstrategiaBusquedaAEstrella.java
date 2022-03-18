@@ -44,15 +44,16 @@ public class EstrategiaBusquedaAEstrella implements EstrategiaBusquedaInformada 
                     continue;
                 }
 
-                if (hijo.getCoste() > coste)
+                NodoHeuristica prior = frontera.peek();
 
-                if (!frontera.contains(hijo) && !explorados.contains(hijo)) {
+                if (hijo.compareTo(prior) > 0) {
+                    frontera.remove(prior);
                     frontera.add(hijo);
                 }
             }
         }
 
-        System.out.println((i) + " - FIN - " + nodoActual.getEstado());
+        System.out.println((i) + " - FIN - ");
 
         return nodoActual.getEstado();
     }
