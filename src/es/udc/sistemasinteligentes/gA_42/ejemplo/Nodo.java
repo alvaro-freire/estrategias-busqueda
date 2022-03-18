@@ -1,9 +1,9 @@
-package es.udc.sistemasinteligentes.ejemplo;
+package es.udc.sistemasinteligentes.gA_42.ejemplo;
 
 import java.util.Objects;
 
-import es.udc.sistemasinteligentes.Accion;
-import es.udc.sistemasinteligentes.Estado;
+import es.udc.sistemasinteligentes.gA_42.Accion;
+import es.udc.sistemasinteligentes.gA_42.Estado;
 
 public class Nodo {
 

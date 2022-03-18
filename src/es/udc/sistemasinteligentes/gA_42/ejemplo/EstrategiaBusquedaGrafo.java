@@ -1,9 +1,10 @@
-package es.udc.sistemasinteligentes.ejemplo;
+package es.udc.sistemasinteligentes.gA_42.ejemplo;
 
-import es.udc.sistemasinteligentes.Accion;
-import es.udc.sistemasinteligentes.Estado;
-import es.udc.sistemasinteligentes.EstrategiaBusqueda;
-import es.udc.sistemasinteligentes.ProblemaBusqueda;
+import es.udc.sistemasinteligentes.gA_42.Accion;
+import es.udc.sistemasinteligentes.gA_42.Estado;
+import es.udc.sistemasinteligentes.gA_42.EstrategiaBusqueda;
+import es.udc.sistemasinteligentes.gA_42.ProblemaBusqueda;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;

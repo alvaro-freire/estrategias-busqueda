@@ -1,4 +1,4 @@
-package es.udc.sistemasinteligentes;
+package es.udc.sistemasinteligentes.gA_42;
 
 public abstract class ProblemaBusqueda {
     private Estado estadoInicial;

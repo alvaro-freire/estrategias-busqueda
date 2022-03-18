@@ -1,14 +1,13 @@
-package es.udc.sistemasinteligentes;
+package es.udc.sistemasinteligentes.gA_42;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+import java.util.Stack;
+import java.util.ArrayList;
 
-import es.udc.sistemasinteligentes.ejemplo.Nodo;
+import es.udc.sistemasinteligentes.gA_42.ejemplo.Nodo;
 
-public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
+public class EstrategiaBusquedaProfundidad implements EstrategiaBusqueda {
 
     public Nodo[] reconstruyeSol(Nodo n) {
         Nodo actual;
@@ -30,7 +29,7 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
         List<Nodo> explorados = new ArrayList<>();
         Nodo nodoActual = new Nodo(p.getEstadoInicial(), null, null);
         Nodo hijo;
-        Queue<Nodo> frontera = new LinkedList<>();
+        Stack<Nodo> frontera = new Stack<>();
         frontera.add(nodoActual);
         int i = 1;
 
@@ -39,7 +38,7 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
                 throw new Exception("No se ha podido encontrar solución");
             }
 
-            nodoActual = frontera.remove();
+            nodoActual = frontera.pop();
 
             if (p.esMeta(nodoActual.getEstado())) {
                 break;
@@ -62,4 +61,5 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
 
         return reconstruyeSol(nodoActual);
     }
+
 }
