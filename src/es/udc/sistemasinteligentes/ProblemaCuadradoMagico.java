@@ -3,6 +3,7 @@ package es.udc.sistemasinteligentes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class ProblemaCuadradoMagico extends ProblemaBusqueda {
 
@@ -47,7 +48,7 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
 
         @Override
         public String toString() {
-            return numero + "in [" + fila + ", " + columna + "]";
+            return numero + " in [" + fila + ", " + columna + "]";
         }
 
         @Override
@@ -76,10 +77,10 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
 
     public Accion[] acciones(Estado estado) {
         EstadoCuadrado es = (EstadoCuadrado) estado;
-        List<Integer> valoresPosibles = new ArrayList<>();
         List<Integer> valoresTotales = new ArrayList<>();
         List<Integer> valoresUtilizados = new ArrayList<>();
         List<Accion> listaAcciones = new ArrayList<>();
+        int valorPosible = 0;
 
         // Guardamos los números que ya han sido utilizados:
         for (int[] fila : es.cuadrado) {
@@ -95,10 +96,11 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
             valoresTotales.add(i);
         }
 
-        // Guardamos los números que todavía no han sido utilizados:
+        // Guardamos el primer número que todavía no ha sido utilizado:
         for (int n : valoresTotales) {
             if (!valoresUtilizados.contains(n)) {
-                valoresPosibles.add(n);
+                valorPosible = n;
+                break;
             }
         }
 
@@ -106,9 +108,7 @@ public class ProblemaCuadradoMagico extends ProblemaBusqueda {
         for (int i = 0; i < es.n; i++) {
             for (int j = 0; j < es.n; j++) {
                 if (es.cuadrado[i][j] == 0) {
-                    for (int valor : valoresPosibles) {
-                        listaAcciones.add(new AccionCuadrado(i, j, valor));
-                    }
+                    listaAcciones.add(new AccionCuadrado(i, j, valorPosible));
                 }
             }
         }
