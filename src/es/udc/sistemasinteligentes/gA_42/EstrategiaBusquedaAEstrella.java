@@ -6,9 +6,9 @@ import java.util.*;
 
 public class EstrategiaBusquedaAEstrella implements EstrategiaBusquedaInformada {
 
-    public Nodo[] reconstruyeSol(Nodo n) {
-        Nodo actual;
-        List<Nodo> revSol = new ArrayList<>();
+    public NodoHeuristica[] reconstruyeSol(NodoHeuristica n) {
+        NodoHeuristica actual;
+        List<NodoHeuristica> revSol = new ArrayList<>();
 
         actual = n;
         while (actual != null) {
@@ -18,7 +18,7 @@ public class EstrategiaBusquedaAEstrella implements EstrategiaBusquedaInformada 
 
         Collections.reverse(revSol);
 
-        return revSol.toArray(new Nodo[0]);
+        return revSol.toArray(new NodoHeuristica[0]);
     }
 
     @Override
