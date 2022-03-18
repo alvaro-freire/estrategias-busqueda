@@ -57,6 +57,8 @@ public class EstrategiaBusquedaProfundidad implements EstrategiaBusqueda {
             }
         }
 
+        System.out.println((i) + " - FIN - " + nodoActual.getEstado());
+
         return reconstruyeSol(nodoActual);
     }
 

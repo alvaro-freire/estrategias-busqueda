@@ -58,6 +58,8 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
             }
         }
 
+        System.out.println((i) + " - FIN - " + nodoActual.getEstado());
+
         return reconstruyeSol(nodoActual);
     }
 }
