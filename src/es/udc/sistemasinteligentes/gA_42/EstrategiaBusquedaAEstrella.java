@@ -11,7 +11,6 @@ public class EstrategiaBusquedaAEstrella implements EstrategiaBusquedaInformada 
         List<NodoHeuristica> explorados = new ArrayList<>();
         Queue<NodoHeuristica> frontera = new PriorityQueue<>();
         frontera.add(nodoActual);
-        NodoHeuristica hijo;
         int i = 1;
 
         while (true) {
@@ -32,7 +31,7 @@ public class EstrategiaBusquedaAEstrella implements EstrategiaBusquedaInformada 
             for (Accion acc : p.acciones(nodoActual.getEstado())) {
                 Estado nuevoEstado = p.result(nodoActual.getEstado(), acc);
                 int coste = nodoActual.getCoste() + 1;
-                hijo = new NodoHeuristica(nuevoEstado, nodoActual, acc,
+                NodoHeuristica hijo = new NodoHeuristica(nuevoEstado, nodoActual, acc,
                         coste, h.evalua(nuevoEstado));
 
                 if (explorados.contains(hijo)) {
