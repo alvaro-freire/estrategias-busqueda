@@ -13,4 +13,26 @@ Para la clase `EstrategiaBúsquedaGrafo` hemos añadido una frontera (cola), que
 
 ### Ejercicio 2
 
+Hemos definido un estado con los atributos `cuadrado` como matriz con las casillas a completar
+y `n` que describe la dimensión del cuadrado `NxN`. Las acciones que hemos concluido para un
+estado se basan en, para cada casilla, colocar el menor número posible.
+
+Ejemplo:
+
+Estado:  
+[4, 9, 2]  
+[3, 5, 7]  
+[0, 0, 0]
+
+
+Acciones:  
+[4, 9, 2] -- [4, 9, 2] -- [4, 9, 2]  
+[3, 5, 7] -- [3, 5, 7] -- [3, 5, 7]  
+[1, 0, 0] -- [0, 1, 0] -- [0, 0, 1]  
+
+
+Se han implementado también dos estrategias:
+`EstrategiaBusquedaAnchura` y `EstrategiaBusquedaProfundidad`.
+
+La idea principal de la búsqueda en anchura consiste en visitar todos los nodos que hay a profundidad `i` antes de pasar a visitar aquellos que hay a profundidad `i+1`. Es decir, tras visitar un nodo, pasamos a visitar a sus hermanos antes que a sus hijos.
 
