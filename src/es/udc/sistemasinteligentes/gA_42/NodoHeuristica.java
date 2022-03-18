@@ -2,25 +2,35 @@ package es.udc.sistemasinteligentes.gA_42;
 
 import java.util.Objects;
 
-public class NodoEj2 {
+public class NodoHeuristica implements Comparable {
 
     private final Estado estado;
-    private final NodoEj2 padre;
+    private final NodoHeuristica padre;
     private final Accion accion;
-    //private final float coste;
+    private final int coste;
+    private final float f;
 
-    public NodoEj2(Estado e, NodoEj2 p, Accion a) {
-        estado = e;
-        padre = p;
-        accion = a;
-        //coste = HeuristicaCuadradoMagico.evalua(e);
+    public NodoHeuristica(Estado e, NodoHeuristica p, Accion a, int c, float f) {
+        this.estado = e;
+        this.padre = p;
+        this.accion = a;
+        this.coste = c;
+        this.f = f;
+    }
+
+    public int getCoste() {
+        return coste;
+    }
+
+    public float getF() {
+        return f;
     }
 
     public Estado getEstado() {
         return estado;
     }
 
-    public NodoEj2 getPadre() {
+    public NodoHeuristica getPadre() {
         return padre;
     }
 
@@ -40,8 +50,15 @@ public class NodoEj2 {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NodoEj2 nodo = (NodoEj2) o;
-        
+        NodoHeuristica nodo = (NodoHeuristica) o;
+
         return Objects.equals(estado, nodo.estado);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+
+
+
     }
 }
