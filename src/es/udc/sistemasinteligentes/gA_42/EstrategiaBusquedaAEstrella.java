@@ -1,25 +1,8 @@
 package es.udc.sistemasinteligentes.gA_42;
 
-import es.udc.sistemasinteligentes.gA_42.ejemplo.Nodo;
-
 import java.util.*;
 
 public class EstrategiaBusquedaAEstrella implements EstrategiaBusquedaInformada {
-
-    public NodoHeuristica[] reconstruyeSol(NodoHeuristica n) {
-        NodoHeuristica actual;
-        List<NodoHeuristica> revSol = new ArrayList<>();
-
-        actual = n;
-        while (actual != null) {
-            revSol.add(actual);
-            actual = actual.getPadre();
-        }
-
-        Collections.reverse(revSol);
-
-        return revSol.toArray(new NodoHeuristica[0]);
-    }
 
     @Override
     public Estado soluciona(ProblemaBusqueda p, Heuristica h) throws Exception {
@@ -71,6 +54,6 @@ public class EstrategiaBusquedaAEstrella implements EstrategiaBusquedaInformada 
 
         System.out.println((i) + " - FIN - " + nodoActual.getEstado());
 
-        return reconstruyeSol(nodoActual);
+        return nodoActual.getEstado();
     }
 }
