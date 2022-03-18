@@ -31,6 +31,7 @@ public class EstrategiaBusquedaProfundidad implements EstrategiaBusqueda {
         Nodo hijo;
         Stack<Nodo> frontera = new Stack<>();
         frontera.add(nodoActual);
+        int i = 1;
 
         while (true) {
             if (frontera.isEmpty()) {
@@ -42,6 +43,8 @@ public class EstrategiaBusquedaProfundidad implements EstrategiaBusqueda {
             if (p.esMeta(nodoActual.getEstado())) {
                 break;
             }
+
+            System.out.println((i++) + " - " + nodoActual.getEstado() + " no es meta");
 
             explorados.add(nodoActual);
 
