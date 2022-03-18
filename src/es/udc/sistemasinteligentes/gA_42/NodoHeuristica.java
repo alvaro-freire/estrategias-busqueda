@@ -2,7 +2,7 @@ package es.udc.sistemasinteligentes.gA_42;
 
 import java.util.Objects;
 
-public class NodoHeuristica implements Comparable {
+public class NodoHeuristica implements Comparable<NodoHeuristica> {
 
     private final Estado estado;
     private final NodoHeuristica padre;
@@ -56,9 +56,13 @@ public class NodoHeuristica implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(NodoHeuristica nodo) {
+        if (this.f < nodo.f) {
+            return -1;
+        } else if (this.f > nodo.f) {
+            return 1;
+        }
 
-
-
+        return 0;
     }
 }
