@@ -4,7 +4,7 @@ import es.udc.sistemasinteligentes.gA_42.ejemplo.Nodo;
 
 import java.util.*;
 
-public class EstrategiaBusquedaEstrella implements EstrategiaBusquedaInformada {
+public class EstrategiaBusquedaAEstrella implements EstrategiaBusquedaInformada {
 
     public Nodo[] reconstruyeSol(Nodo n) {
         Nodo actual;
@@ -23,12 +23,12 @@ public class EstrategiaBusquedaEstrella implements EstrategiaBusquedaInformada {
 
     @Override
     public Estado soluciona(ProblemaBusqueda p, Heuristica h) throws Exception {
-        List<NodoHeuristica> explorados = new ArrayList<>();
         NodoHeuristica nodoActual = new NodoHeuristica(p.getEstadoInicial(), null, null,
                 0, h.evalua(p.getEstadoInicial()));
-        NodoHeuristica hijo;
+        List<NodoHeuristica> explorados = new ArrayList<>();
         Queue<NodoHeuristica> frontera = new PriorityQueue<>();
         frontera.add(nodoActual);
+        NodoHeuristica hijo;
         int i = 1;
 
         while (true) {
@@ -36,7 +36,7 @@ public class EstrategiaBusquedaEstrella implements EstrategiaBusquedaInformada {
                 throw new Exception("No se ha podido encontrar solución");
             }
 
-            nodoActual = frontera.pop();
+            nodoActual = frontera.poll();
 
             if (p.esMeta(nodoActual.getEstado())) {
                 break;
@@ -47,7 +47,21 @@ public class EstrategiaBusquedaEstrella implements EstrategiaBusquedaInformada {
             explorados.add(nodoActual);
 
             for (Accion acc : p.acciones(nodoActual.getEstado())) {
-                hijo = new Nodo(p.result(nodoActual.getEstado(), acc), nodoActual, acc);
+                Estado nuevoEstado = p.result(nodoActual.getEstado(), acc);
+                int coste = nodoActual.getCoste() + 1;
+                hijo = new NodoHeuristica(nuevoEstado, nodoActual, acc,
+                        coste, h.evalua(nuevoEstado));
+
+                if (explorados.contains(hijo)) {
+                    continue;
+                }
+
+                if (!frontera.contains(hijo)) {
+                    frontera.add(hijo);
+                    continue;
+                }
+
+                if (hijo.getCoste() > coste)
 
                 if (!frontera.contains(hijo) && !explorados.contains(hijo)) {
                     frontera.add(hijo);
