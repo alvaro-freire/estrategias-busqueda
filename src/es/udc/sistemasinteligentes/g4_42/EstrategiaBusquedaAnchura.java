@@ -32,7 +32,7 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
         Nodo hijo;
         Queue<Nodo> frontera = new LinkedList<>();
         frontera.add(nodoActual);
-        int i = 1;
+        int i = 1, n_cr = 1, n_exp = 0;
 
         while (true) {
             if (frontera.isEmpty()) {
@@ -48,9 +48,11 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
             System.out.println((i++) + " - " + nodoActual.getEstado() + " no es meta");
 
             explorados.add(nodoActual);
+            n_exp++;
 
             for (Accion acc : p.acciones(nodoActual.getEstado())) {
                 hijo = new Nodo(p.result(nodoActual.getEstado(), acc), nodoActual, acc);
+                n_cr++;
 
                 if (!frontera.contains(hijo) && !explorados.contains(hijo)) {
                     frontera.add(hijo);
@@ -59,6 +61,9 @@ public class EstrategiaBusquedaAnchura implements EstrategiaBusqueda {
         }
 
         System.out.println((i) + " - FIN - " + nodoActual.getEstado());
+        System.out.println("Nodos creados: " + n_cr);
+        System.out.println("Nodos expandidos: " + n_exp);
+
 
         return reconstruyeSol(nodoActual);
     }
