@@ -3,6 +3,7 @@ package es.udc.sistemasinteligentes.gA_42;
 import es.udc.sistemasinteligentes.gA_42.ProblemaCuadradoMagico.EstadoCuadrado;
 
 public class HeuristicaCuadradoMagico extends Heuristica{
+
     @Override
     public float evalua(Estado e) {
         EstadoCuadrado ec = (EstadoCuadrado) e;
