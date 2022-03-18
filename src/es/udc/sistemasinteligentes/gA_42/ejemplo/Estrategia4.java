@@ -7,6 +7,7 @@ import es.udc.sistemasinteligentes.gA_42.ProblemaBusqueda;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Estrategia4 implements EstrategiaBusqueda {
 
@@ -15,7 +16,7 @@ public class Estrategia4 implements EstrategiaBusqueda {
 
     public Nodo[] reconstruyeSol(Nodo n) {
         Nodo actual;
-        ArrayList<Nodo> revSol = new ArrayList<>();
+        List<Nodo> revSol = new ArrayList<>();
 
         actual = n;
         while (actual != null) {
@@ -30,7 +31,7 @@ public class Estrategia4 implements EstrategiaBusqueda {
 
     @Override
     public Nodo[] soluciona(ProblemaBusqueda p) throws Exception {
-        ArrayList<Estado> explorados = new ArrayList<Estado>();
+        List<Estado> explorados = new ArrayList<Estado>();
         Estado estadoActual = p.getEstadoInicial();
         explorados.add(estadoActual);
         Nodo nodo = new Nodo(estadoActual, null, null);

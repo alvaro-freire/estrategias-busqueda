@@ -5,16 +5,13 @@ import es.udc.sistemasinteligentes.gA_42.Estado;
 import es.udc.sistemasinteligentes.gA_42.EstrategiaBusqueda;
 import es.udc.sistemasinteligentes.gA_42.ProblemaBusqueda;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class EstrategiaBusquedaGrafo implements EstrategiaBusqueda {
 
     public Nodo[] reconstruyeSol(Nodo n) {
         Nodo actual;
-        ArrayList<Nodo> revSol = new ArrayList<>();
+        List<Nodo> revSol = new ArrayList<>();
 
         actual = n;
         while (actual != null) {
@@ -29,7 +26,7 @@ public class EstrategiaBusquedaGrafo implements EstrategiaBusqueda {
 
     @Override
     public Nodo[] soluciona(ProblemaBusqueda p) throws Exception {
-        ArrayList<Nodo> explorados = new ArrayList<>();
+        List<Nodo> explorados = new ArrayList<>();
         Queue<Nodo> frontera = new LinkedList<>();
         Nodo nodoActual = new Nodo(p.getEstadoInicial(), null, null);
         frontera.add(nodoActual);
