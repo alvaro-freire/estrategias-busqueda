@@ -45,11 +45,11 @@ camino concreto. Cuando ya no quedan más nodos que visitar en dicho
 camino, regresa, de modo que repite el mismo proceso con cada uno de 
 los hermanos del nodo ya procesado.
 
-Para este caso, la búsqueda en anchura es completa (expande antes los 
-nodos más próximos a la meta) y óptima (siempre encuentra la solución 
-que requiere menos pasos). En el caso de la búsqueda en profundidad, 
-esta no ofrece una solución óptima, ya que puede encontrar la meta en
-el nivel más bajo cuando esta podría estar en uno superior.
+Para este caso, la búsqueda en anchura es completa (suponiendo un número
+finito de estados los llega a expandir todos) y óptima (siempre encuentra
+la solución que requiere menos pasos). En el caso de la búsqueda en 
+profundidad, esta no ofrece una solución óptima, ya que puede encontrar la
+meta en el nivel más bajo cuando esta podría estar en uno superior.
 
 Por lo tanto, la estrategia más adecuada es la búsqueda en anchura.
 
@@ -70,3 +70,6 @@ Una vez se comprueba que el estado no es incorrecto, se comienza a
 que haya en cada fila. De esta forma, cuantas más casillas rellenas
 haya, mayor será el valor de la función heurística y más cerca estaremos
 de la meta.
+
+La heurística es admisible ya que nunca va a sobreestimar el coste real
+de alcanzar la meta, y 
