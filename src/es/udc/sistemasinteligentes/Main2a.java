@@ -2,7 +2,7 @@ package es.udc.sistemasinteligentes;
 
 import java.util.Arrays;
 
-public class MainCuadradoMagico {
+public class Main2a {
     public static void main(String[] args) throws Exception {
         int n = 3;
         int[][] cuadrado = {{4, 9, 0}, {0, 0, 0}, {0, 0, 0}};
