@@ -75,3 +75,8 @@ La heurística es admisible ya que nunca va a sobreestimar el coste real
 de alcanzar la meta, y consistente, ya que su estimación es siempre menor 
 o igual a la distancia estimada desde cualquier vértice vecino a la meta, 
 más el costo de alcanzarla.
+
+<!-- LICENSE -->
+### License
+
+Distributed under the MIT License. See `LICENSE` for more information.
