@@ -72,4 +72,6 @@ haya, mayor será el valor de la función heurística y más cerca estaremos
 de la meta.
 
 La heurística es admisible ya que nunca va a sobreestimar el coste real
-de alcanzar la meta, y 
+de alcanzar la meta, y consistente, ya que su estimación es siempre menor 
+o igual a la distancia estimada desde cualquier vértice vecino a la meta, 
+más el costo de alcanzarla.
